@@ -21,21 +21,21 @@ pipeline {
         }
         stage('Clean') {
             steps {
-                dir("${env.WORKSPACE}/") {
+                dir("${env.WORKSPACE}") {
                     pwsh 'gradle clean'
                 }
             }
         }
         stage('Test') {
             steps {
-                dir("${env.WORKSPACE}/") {    
+                dir("${env.WORKSPACE}") {    
                     pwsh 'gradle test'
                 }
             }
         }
         stage('Build') {
             steps {
-                dir("${env.WORKSPACE}/") {
+                dir("${env.WORKSPACE}") {
                     pwsh 'gradle war'
                 }
             }
@@ -43,9 +43,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 input message: 'Confirm deployment to production...', ok: 'Deploy'
-                pwsh "./${env.TOMCAT_PATH}/bin/shutdown.bat"
+                pwsh "\"${env.TOMCAT_PATH}/bin/shutdown.bat\""
                 pwsh "cp ${env.WORKSPACE}/build/libs/spring-boot-full-stack-1.0.0-plain.jar ${env.TOMCAT_PATH}/webapps/spring-boot.war"
-                pwsh "./${env.TOMCAT_PATH}/bin/startup.bat"
+                pwsh "\"${env.TOMCAT_PATH}/bin/startup.bat\""
             }
         }
     }
