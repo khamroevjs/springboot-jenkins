@@ -21,21 +21,21 @@ pipeline {
         }
         stage('Clean') {
             steps {
-                dir("${env.WORKSPACE}") {
+                dir("${env.WORKSPACE}/") {
                     pwsh 'gradle clean'
                 }
             }
         }
         stage('Test') {
             steps {
-                dir("${env.WORKSPACE}") {    
+                dir("${env.WORKSPACE}/") {    
                     pwsh 'gradle test'
                 }
             }
         }
         stage('Build') {
             steps {
-                dir("${env.WORKSPACE}") {
+                dir("${env.WORKSPACE}/") {
                     pwsh 'gradle war'
                 }
             }
