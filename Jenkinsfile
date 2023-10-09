@@ -14,28 +14,28 @@ pipeline {
                 pwsh 'gradle --version'
                 pwsh 'git --version'
                 git url: 'https://github.com/khamroevjs/spring-boot-fullstack.git'
-                    branch: 'ci-task',
+                    branch: 'main',
                     changelog: false,
                     poll: false
             }
         }
         stage('Clean') {
             steps {
-                dir("${env.WORKSPACE}/backend") {
+                dir("${env.WORKSPACE}") {
                     pwsh 'gradle clean'
                 }
             }
         }
         stage('Test') {
             steps {
-                dir("${env.WORKSPACE}/backend") {
+                dir("${env.WORKSPACE}") {    
                     pwsh 'gradle test'
                 }
             }
         }
         stage('Build') {
             steps {
-                dir("${env.WORKSPACE}/backend") {
+                dir("${env.WORKSPACE}") {
                     pwsh 'gradle war'
                 }
             }
@@ -43,15 +43,15 @@ pipeline {
         stage('Deploy') {
             steps {
                 input message: 'Confirm deployment to production...', ok: 'Deploy'
-                pwsh "./${TOMCAT_PATH}/bin/shutdown.bat"
-                pwsh "cp ${env.WORKSPACE}/backend/build/libs/spring-boot-full-stack-1.0.0-plain.jar ${TOMCAT_PATH}/webapps/spring-boot.war"
-                pwsh "./${TOMCAT_PATH}/bin/startup.bat"
+                pwsh "./${env.TOMCAT_PATH}/bin/shutdown.bat"
+                pwsh "cp ${env.WORKSPACE}/build/libs/spring-boot-full-stack-1.0.0-plain.jar ${env.TOMCAT_PATH}/webapps/spring-boot.war"
+                pwsh "./${env.TOMCAT_PATH}/bin/startup.bat"
             }
         }
     }
     post {
         always {
-            archiveArtifacts artifacts: '/backend/build/libs/spring-boot-full-stack-1.0.0-plain.jar',
+            archiveArtifacts artifacts: '**/build/libs/springboot-jenkins-1.0-plain.war',
                 allowEmptyArchive: true,
                 onlyIfSuccessful: true,
                 fingerprint: true,
