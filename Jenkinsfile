@@ -44,7 +44,7 @@ pipeline {
             steps {
                 input message: 'Confirm deployment to production...', ok: 'Deploy'
                 pwsh "\"${env.TOMCAT_PATH}/bin/shutdown.bat\""
-                pwsh "cp ${env.WORKSPACE}/build/libs/springboot-jenkins-1.0-plain.war ${env.TOMCAT_PATH}/webapps/spring-boot.war"
+                pwsh "cp \"${env.WORKSPACE}/build/libs/springboot-jenkins-1.0-plain.war\" \"${env.TOMCAT_PATH}/webapps/spring-boot.war\""
                 pwsh "\"${env.TOMCAT_PATH}/bin/startup.bat\""
             }
         }
