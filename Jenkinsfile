@@ -3,11 +3,6 @@ pipeline {
     tools {
         gradle 'Gradle-8.4'
     }
-    // parameters {
-    //     string(name: 'TOMCAT_PATH',
-    //         defaultValue: 'C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1',
-    //         description: 'Enter Tomcat Server 10 folder path')
-    // }
     stages {
         stage('Source') {
             steps {
@@ -40,24 +35,23 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv(credentialsId: 'sonar-token') {
+                    bat 'gradle sonar'
+                }
+            }
+        }
         stage('Deploy') {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'c837a596-c033-4c77-b567-9af5ccec88e3', path: '', url: 'http://localhost:8000/')],
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-secret', path: '', url: 'http://localhost:8000/')],
                     contextPath: 'spring-boot', onFailure: false, war: '**/*.war'
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         input message: 'Confirm deployment to production...', ok: 'Deploy'
-        //         bat "\"${env.TOMCAT_PATH}\\bin\\shutdown.bat\""
-        //         bat "copy \"${env.WORKSPACE}\\build\\libs\\springboot-jenkins-1.0-plain.war\" \"${env.TOMCAT_PATH}\\webapps\\spring-boot.war\""
-        //         bat "\"${env.TOMCAT_PATH}\\bin\\startup.bat\""
-        //     }
-        // }
     }
     post {
         always {
-            archiveArtifacts artifacts: '**\\build\\libs\\springboot-jenkins-1.0-plain.war',
+            archiveArtifacts artifacts: '**/build/libs/springboot-jenkins-1.0-plain.war',
                 allowEmptyArchive: true,
                 onlyIfSuccessful: true,
                 fingerprint: true,
