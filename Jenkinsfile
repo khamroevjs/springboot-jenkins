@@ -42,10 +42,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'c4465698-6b86-4ad0-ab00-c4cbe29ac4f6', path: '', url: 'http://localhost:8000/')], 
-                    contextPath: 'spring-boot',
-                    onFailure: false,
-                    war: "**/springboot-jenkins-1.0-plain.war"
+                deploy adapters: [tomcat9(credentialsId: 'c837a596-c033-4c77-b567-9af5ccec88e3', path: '', url: 'http://localhost:8000/')],
+                    contextPath: 'spring-boot', onFailure: false, war: '**/*.war'
             }
         }
         // stage('Deploy') {
