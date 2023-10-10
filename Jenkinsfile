@@ -37,7 +37,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(credentialsId: 'sonar-token') {
+                withSonarQubeEnv(installationName: 'sonar-server', credentialsId: 'sonar-token') {
                     bat 'gradle sonar'
                 }
             }
