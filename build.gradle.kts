@@ -36,6 +36,17 @@ tasks.withType<KotlinCompile> {
 	}
 }
 
+jacoco {
+	toolVersion = "0.8.10"
+}
+
+tasks.jacocoTestReport {
+	reports {
+		xml.required = true
+	}
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
+	finalizedBy(tasks.jacocoTestReport)
 }
