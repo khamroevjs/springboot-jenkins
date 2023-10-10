@@ -2,6 +2,7 @@ package com.example.springbootjenkins
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -18,5 +19,10 @@ class SpringbootJenkinsApplicationTests {
     @Test
     fun indexTest() {
         assertEquals(controller.index(), "Hello World!")
+    }
+
+    @Test
+    fun indexTest2() {
+        assertNotEquals(controller.index(), "Hello")
     }
 }
