@@ -10,8 +10,7 @@ pipeline {
                 bat 'git --version'
                 git url: 'https://github.com/khamroevjs/springboot-jenkins.git',
                     branch: 'main',
-                    changelog: false,
-                    poll: false
+                    changelog: false
             }
         }
         stage('Clean') {
