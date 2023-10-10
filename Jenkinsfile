@@ -63,7 +63,7 @@ pipeline {
                 fingerprint: true,
                 followSymlinks: false
             
-            junit allowEmptyResults: true, testResults: '**/backend/build/test-results/test/TEST-*.xml'
+            junit allowEmptyResults: true, testResults: '**/build/test-results/test/TEST-*.xml'
         }
     }
 }
