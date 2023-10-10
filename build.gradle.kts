@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.3"
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
+	id("org.sonarqube") version "4.4.1.3373"
 	war
 }
 
