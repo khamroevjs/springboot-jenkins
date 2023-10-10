@@ -3,11 +3,11 @@ pipeline {
     tools {
         gradle 'Gradle-8.4'
     }
-    parameters {
-        string(name: 'TOMCAT_PATH',
-            defaultValue: 'C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1',
-            description: 'Enter Tomcat Server 10 folder path')
-    }
+    // parameters {
+    //     string(name: 'TOMCAT_PATH',
+    //         defaultValue: 'C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1',
+    //         description: 'Enter Tomcat Server 10 folder path')
+    // }
     stages {
         stage('Source') {
             steps {
