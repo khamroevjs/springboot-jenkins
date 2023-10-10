@@ -10,4 +10,9 @@ class MainController {
     fun index(): String {
         return "Hello World!"
     }
+
+    @GetMapping("/hello")
+    fun hello(): String {
+        return "Hello"
+    }
 }
