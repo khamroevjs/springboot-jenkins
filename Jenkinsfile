@@ -9,7 +9,9 @@ pipeline {
                 bat 'gradle --version'
                 bat 'git --version'
                 git url: 'https://github.com/khamroevjs/springboot-jenkins.git',
-                    branch: 'main'
+                    branch: 'main',
+                    changelog: false,
+                    poll: false
             }
         }
         stage('Clean') {
